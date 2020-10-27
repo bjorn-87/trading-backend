@@ -1,5 +1,16 @@
 'use strict';
 
+const jwt = require('jsonwebtoken');
+let config;
+
+try {
+    config = require("../config.json");
+} catch (error) {
+    console.error(error);
+}
+
+const secret = process.env.JWT_SECRET || config.secret;
+
 var logIncoming = function(req, res, next) {
     console.info(`Got request on ${req.path} (${req.method}).`);
     next();
@@ -32,8 +43,31 @@ var errorHandler = (err, req, res, next) => {
     });
 };
 
+/**
+ * Function to check if jwt token is valid
+ */
+var checkToken = function(req, res, next) {
+    const token = req.headers['x-access-token'];
+
+    jwt.verify(token, secret, function(err) {
+        if (err) {
+            return res.status(500).json({
+                errors: {
+                    status: 500,
+                    source: "/register",
+                    title: "Authentication failed",
+                    detail: err.message
+                }
+            });
+        }
+        // console.log(token);
+        next();
+    });
+};
+
 module.exports = {
     logIncoming: logIncoming,
     fourOFourHandler: fourOFourHandler,
-    errorHandler: errorHandler
+    errorHandler: errorHandler,
+    checkToken: checkToken
 };

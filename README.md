@@ -1,12 +1,12 @@
 ## Download and install
-npm install
+### npm install
 First download this repo and then run the command.
 
 ## Add config.json
 Add a config.json file in root folder and choose a random secret password (64chars):
 
 {
-    "secret": [password]
+    "secret": "password"
 }
 
 ## Set up the database

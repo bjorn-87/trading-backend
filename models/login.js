@@ -68,7 +68,7 @@ var loginUser = function(res, body) {
 
                 if (result) {
                     let payload = { email: user.email };
-                    let jwtToken = jwt.sign(payload, secret, { expiresIn: '1h' });
+                    let jwtToken = jwt.sign(payload, secret, { expiresIn: '12h' });
 
                     return res.json({
                         data: {
