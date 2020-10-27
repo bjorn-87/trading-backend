@@ -1,10 +1,7 @@
 const db = require('../db/database.js');
 
-
-// select count(id) from stock_order where user = 'test@bjos19.me' and stock = ?;
-
 /**
- * Function to get one report.
+ * Function to get portfolio.
  */
 var getOrders = function(res, user) {
     let sql = `SELECT * FROM portfolio WHERE user = "${user}"`;
@@ -35,45 +32,14 @@ var getOrders = function(res, user) {
 };
 
 
-//
-// /**
-//  * Function to edit a report.
-//  */
-// var editReport = function(res, body) {
-//     const week = parseInt(body.week);
-//     const text = body.text;
-//
-//     // console.log(week);
-//     // console.log(text);
-//     db.run("UPDATE reports SET text = ? WHERE week = ?",
-//         text,
-//         week, (err) => {
-//             if (err) {
-//                 return res.status(500).json({
-//                     error: {
-//                         status: 500,
-//                         source: "/register/edit",
-//                         title: "Databas error",
-//                         detail: err.message
-//                     }
-//                 });
-//             }
-//             return res.status(200).json({
-//                 data: {
-//                     msg: "Report successfully updated"
-//                 }
-//             });
-//         });
-// };
-//
 /**
- * Function to add a report.
+ * Function to buy stocks.
  */
 var buyStock = function(res, body) {
     const stock = body.stock;
     const user = body.user;
     const amount = parseInt(body.amount);
-    const price = parseInt(body.price);
+    const price = parseInt(body.price) * amount;
     let sql;
 
     db.get("SELECT account FROM users WHERE email = ?",
@@ -82,8 +48,8 @@ var buyStock = function(res, body) {
                 return res.status(500).json({
                     errors: {
                         status: 500,
-                        source: "/register/edit",
-                        title: "Databas error",
+                        source: "/order/buy",
+                        title: "Database error",
                         detail: err.message
                     }
                 });
@@ -94,8 +60,8 @@ var buyStock = function(res, body) {
                 return res.status(500).json({
                     errors: {
                         status: 500,
-                        source: "/register/edit",
-                        title: "Databas error",
+                        source: "/order/buy",
+                        title: "Database error",
                         detail: "Not enough money"
                     }
                 });
@@ -107,8 +73,8 @@ var buyStock = function(res, body) {
                         return res.status(500).json({
                             errors: {
                                 status: 500,
-                                source: "/order/",
-                                title: "Databas error",
+                                source: "/order/buy",
+                                title: "Database error",
                                 detail: err.message
                             }
                         });
@@ -120,8 +86,8 @@ var buyStock = function(res, body) {
                                 return res.status(500).json({
                                     errors: {
                                         status: 500,
-                                        source: "/register/edit",
-                                        title: "Databas error",
+                                        source: "/order/buy",
+                                        title: "Database error",
                                         detail: err.message
                                     }
                                 });
@@ -138,8 +104,8 @@ var buyStock = function(res, body) {
                                             return res.status(500).json({
                                                 errors: {
                                                     status: 500,
-                                                    source: "/register/edit",
-                                                    title: "Databas error",
+                                                    source: "/order/buy",
+                                                    title: "Database error",
                                                     detail: err.message
                                                 }
                                             });
@@ -162,8 +128,8 @@ var buyStock = function(res, body) {
                                             return res.status(500).json({
                                                 errors: {
                                                     status: 500,
-                                                    source: "/register/edit",
-                                                    title: "Databas error",
+                                                    source: "/order/buy",
+                                                    title: "Database error",
                                                     detail: err.message
                                                 }
                                             });
@@ -180,98 +146,106 @@ var buyStock = function(res, body) {
                 });
         });
 };
-// /**
-//  * Function to add a report.
-//  */
-// var buyStock = function(res, body) {
-//     const price = parseFloat(body.price);
-//     const stock = body.stock;
-//     const user = body.user;
-//
-//     db.run("INSERT INTO stock_order (user, stock, price) VALUES (?, ?, ?)",
-//         user,
-//         stock,
-//         price, (err) => {
-//             if (err) {
-//                 return res.status(500).json({
-//                     errors: {
-//                         status: 500,
-//                         source: "/register/edit",
-//                         title: "Databas error",
-//                         detail: err.message
-//                     }
-//                 });
-//             }
-//             res.status(201).json({
-//                 data: {
-//                     msg: "order successfully registered"
-//                 }
-//             });
-//         }
-//     );
-// };
+
 
 /**
- * Function to add a report.
+ * Function to sell stocks
  */
 var sellStock = function(res, body) {
-    // const amount = parseInt(body.amount);
+    const amount = parseInt(body.amount);
+    const price = parseInt(body.price) * amount;
     const stock = body.stock;
     const user = body.user;
-    let sql = `DELETE FROM "stock_order" WHERE user = "${user}" AND stock = "${stock}"`;
+    let sql;
 
-    console.log(sql);
-    db.run(
-        sql, (err) => {
+    db.get("SELECT amount FROM portfolio WHERE user = ? AND stock = ?",
+        user,
+        stock, (err, row) => {
             if (err) {
                 return res.status(500).json({
                     errors: {
                         status: 500,
-                        source: "/order/",
-                        title: "Databas error",
+                        source: "/order/sell",
+                        title: "Database error",
                         detail: err.message
                     }
                 });
             }
-            res.status(201).json({
-                data: {
-                    msg: "order successfully deleted"
+            if (row === undefined || row.amount < amount) {
+                return res.status(500).json({
+                    errors: {
+                        status: 500,
+                        source: "/order/sell",
+                        title: "Database error",
+                        detail: "No more stocks to sell"
+                    }
+                });
+            }
+            db.get("SELECT * FROM users WHERE email = ?",
+                user, (err, row) => {
+                    if (err) {
+                        return res.status(500).json({
+                            errors: {
+                                status: 500,
+                                source: "/order/sell",
+                                title: "Database error",
+                                detail: err.message
+                            }
+                        });
+                    }
+                    if (row === undefined) {
+                        return res.status(500).json({
+                            errors: {
+                                status: 500,
+                                source: "/order/sell",
+                                title: "Database error",
+                                detail: "User not found"
+                            }
+                        });
+                    }
+                    db.run("UPDATE users SET account = account + ? WHERE email = ?",
+                        price,
+                        user, (err) => {
+                            if (err) {
+                                return res.status(500).json({
+                                    errors: {
+                                        status: 500,
+                                        source: "/order/sell",
+                                        title: "Database error",
+                                        detail: err.message
+                                    }
+                                });
+                            }
+                            sql = "UPDATE portfolio SET amount = amount - ? " +
+                                "WHERE user = ? AND stock = ?";
+                            db.run(sql,
+                                amount,
+                                user,
+                                stock, (err) => {
+                                    if (err) {
+                                        return res.status(500).json({
+                                            errors: {
+                                                status: 500,
+                                                source: "/order/sell",
+                                                title: "Database error",
+                                                detail: err.message
+                                            }
+                                        });
+                                    }
+                                    res.status(201).json({
+                                        data: {
+                                            msg: "Order successfully sold"
+                                        }
+                                    });
+                                }
+                            );
+                        }
+                    );
                 }
-            });
-        }
-    );
+            );
+        });
 };
 
-// /**
-//  * Function to add a report.
-//  */
-// var sellStock = function(res, body) {
-//     const amount = parseInt(body.amount);
-//     const stock = body.stock;
-//     const user = body.user;
-//     let sql = `DELETE FROM "stock_order" WHERE user = "${user}" AND stock = "${stock}"`;
-//
-//     console.log(sql);
-//     db.run(
-//         sql, (err) => {
-//             if (err) {
-//                 return res.status(500).json({
-//                     errors: {
-//                         status: 500,
-//                         source: "/order/",
-//                         title: "Databas error",
-//                         detail: err.message
-//                     }
-//                 });
-//             }
-//             res.status(201).json({
-//                 data: {
-//                     msg: "order successfully deleted"
-//                 }
-//             });
-//         }
-//     );
-// };
 
 module.exports = {
     getOrders: getOrders,
