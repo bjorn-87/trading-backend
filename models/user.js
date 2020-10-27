@@ -3,7 +3,8 @@ const db = require('../db/database.js');
 /**
  * Function to get one report.
  */
-var getAccount = function(res, user) {
+var getAccount = function(res, body) {
+    let user = body.user;
     let sql = `SELECT account FROM users WHERE email = "${user}"`;
 
     db.get(

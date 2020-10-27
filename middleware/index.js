@@ -1,6 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
+
 let config;
 
 try {
@@ -11,6 +12,7 @@ try {
 
 const secret = process.env.JWT_SECRET || config.secret;
 
+// Log incoming request
 var logIncoming = function(req, res, next) {
     console.info(`Got request on ${req.path} (${req.method}).`);
     next();
@@ -65,9 +67,22 @@ var checkToken = function(req, res, next) {
     });
 };
 
+
+/**
+ * create a token.
+ */
+var createToken = function(email) {
+    let payload = {email: email};
+    let jwtToken = jwt.sign(payload, secret, { expiresIn: '12h' });
+
+    return jwtToken;
+};
+
+
 module.exports = {
     logIncoming: logIncoming,
     fourOFourHandler: fourOFourHandler,
     errorHandler: errorHandler,
-    checkToken: checkToken
+    checkToken: checkToken,
+    createToken: createToken
 };

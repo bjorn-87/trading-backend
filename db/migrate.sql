@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     UNIQUE(email)
 );
 
-INSERT INTO users (email, password) VALUES ("test@bjos19.me", "$2a$10$u1XTawLdktfXgHQkTOP9leXHzkPL9Z17EP57f2yOHz3Vt8vVTh/Be");
+INSERT INTO users (email, password, account) VALUES ("test@bjos19.me", "$2a$10$u1XTawLdktfXgHQkTOP9leXHzkPL9Z17EP57f2yOHz3Vt8vVTh/Be", 10);
 
 DROP TABLE IF EXISTS portfolio;
 
@@ -20,14 +20,4 @@ CREATE TABLE IF NOT EXISTS portfolio (
 );
 
 INSERT INTO portfolio (user, stock, amount) VALUES ("test@bjos19.me", "Häxvrål", 3);
-
--- DROP TABLE IF EXISTS stock_order;
---
--- CREATE TABLE IF NOT EXISTS stock_order (
---     id INTEGER PRIMARY KEY AUTOINCREMENT,
---     user VARCHAR(255) NOT NULL,
---     stock VARCHAR(50),
---     price REAL NOT NULL,
---     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
--- INSERT INTO stock_order (user, stock, price) VALUES ("test@bjos19.me", "Häxvrål", 20.5);
+INSERT INTO portfolio (user, stock, amount) VALUES ("test", "Häxvrål", 3);

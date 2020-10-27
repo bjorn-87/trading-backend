@@ -3,7 +3,8 @@ const db = require('../db/database.js');
 /**
  * Function to get portfolio.
  */
-var getOrders = function(res, user) {
+var getOrders = function(res, body) {
+    let user = body.user;
     let sql = `SELECT * FROM portfolio WHERE user = "${user}"`;
 
     db.all(
@@ -18,15 +19,7 @@ var getOrders = function(res, user) {
                         detail: err.message
                     }
                 });
-            } else if (row === undefined) {
-                return res.status(404).json({
-                    data: {
-                        status: 404,
-                        text: "404 Page not found"
-                    }
-                });
             }
-            // console.log(row);
             res.status(200).json( { data: row } );
         });
 };
@@ -39,9 +32,19 @@ var buyStock = function(res, body) {
     const stock = body.stock;
     const user = body.user;
     const amount = parseInt(body.amount);
-    const price = parseInt(body.price) * amount;
+    const price = parseFloat(body.price) * amount;
     let sql;
 
+    if (!stock || !user || amount <= 0) {
+        return res.status(401).json({
+            errors: {
+                status: 401,
+                source: "/order/buy",
+                title: "Unauthorized",
+                detail: "Enter the correct values"
+            }
+        });
+    }
     db.get("SELECT account FROM users WHERE email = ?",
         user, (err, rows) => {
             if (err) {
@@ -134,7 +137,7 @@ var buyStock = function(res, body) {
                                                 }
                                             });
                                         }
-                                        res.status(201).json({
+                                        res.status(200).json({
                                             data: {
                                                 msg: "order successfully registered"
                                             }
@@ -153,11 +156,21 @@ var buyStock = function(res, body) {
  */
 var sellStock = function(res, body) {
     const amount = parseInt(body.amount);
-    const price = parseInt(body.price) * amount;
+    const price = parseFloat(body.price) * amount;
     const stock = body.stock;
     const user = body.user;
     let sql;
 
+    if (!stock || !user || amount <= 0) {
+        return res.status(401).json({
+            errors: {
+                status: 401,
+                source: "/order/buy",
+                title: "Unauthorized",
+                detail: "Enter the correct values"
+            }
+        });
+    }
     db.get("SELECT amount FROM portfolio WHERE user = ? AND stock = ?",
         user,
         stock, (err, row) => {
@@ -172,11 +185,11 @@ var sellStock = function(res, body) {
                 });
             }
             if (row === undefined || row.amount < amount) {
-                return res.status(500).json({
+                return res.status(404).json({
                     errors: {
-                        status: 500,
+                        status: 404,
                         source: "/order/sell",
-                        title: "Database error",
+                        title: "Not found",
                         detail: "No more stocks to sell"
                     }
                 });
@@ -194,11 +207,11 @@ var sellStock = function(res, body) {
                         });
                     }
                     if (row === undefined) {
-                        return res.status(500).json({
+                        return res.status(404).json({
                             errors: {
-                                status: 500,
+                                status: 404,
                                 source: "/order/sell",
-                                title: "Database error",
+                                title: "Not found",
                                 detail: "User not found"
                             }
                         });
@@ -232,7 +245,7 @@ var sellStock = function(res, body) {
                                             }
                                         });
                                     }
-                                    res.status(201).json({
+                                    res.status(200).json({
                                         data: {
                                             msg: "Order successfully sold"
                                         }
