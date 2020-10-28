@@ -37,7 +37,7 @@ var getAccount = function(res, body) {
  */
 var updateAccount = function(res, body) {
     const money = parseFloat(body.money);
-    const email = body.email;
+    const email = body.user;
     const type = body.type;
 
     if (type === "insert") {
@@ -46,10 +46,10 @@ var updateAccount = function(res, body) {
             email, (err) => {
                 if (err) {
                     return res.status(500).json({
-                        error: {
+                        errors: {
                             status: 500,
                             source: "/user/account",
-                            title: "Databas error",
+                            title: "Database error",
                             detail: err.message
                         }
                     });
@@ -78,10 +78,10 @@ var updateAccount = function(res, body) {
                 if (rows.account < money) {
                     return res.status(401).json({
                         errors: {
-                            status: 401,
+                            status: 404,
                             source: "/user/account",
                             title: "Not enough money",
-                            detail: "User with provided email not found."
+                            detail: "Not enough money to withdraw."
                         }
                     });
                 }
@@ -92,10 +92,10 @@ var updateAccount = function(res, body) {
                     email, (err) => {
                         if (err) {
                             return res.status(500).json({
-                                error: {
+                                errors: {
                                     status: 500,
                                     source: "/user/account",
-                                    title: "Databas error",
+                                    title: "Database error",
                                     detail: err.message
                                 }
                             });
@@ -108,11 +108,11 @@ var updateAccount = function(res, body) {
                     });
             });
     } else {
-        return res.status(500).json({
-            error: {
-                status: 500,
+        return res.status(401).json({
+            errors: {
+                status: 401,
                 source: "/user/account",
-                title: "Databas error",
+                title: "Unauthorized",
                 detail: "No type selected"
             }
         });

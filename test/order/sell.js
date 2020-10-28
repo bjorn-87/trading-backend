@@ -22,12 +22,28 @@ describe('Orders, sell', () => {
                     user: "test@bjos19.me",
                     stock: "Häxvrål",
                     price: 1,
-                    amount: 1
+                    amount: 2
                 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
                     res.body.data.msg.should.be.equal("Order successfully sold");
+
+                    done();
+                });
+        });
+
+        it('200 HAPPY PATH (check account after sell)', (done) => {
+            chai.request(server)
+                .post("/user/")
+                .set("Content-Type", "application/json")
+                .set("x-access-token", token)
+                .send({ user: "test@bjos19.me" })
+                .end((err, res) => {
+                    // console.log(res.body.data);
+                    res.should.have.status(200);
+                    res.body.should.be.an("object");
+                    res.body.data.account.should.be.equal(7);
 
                     done();
                 });
@@ -134,6 +150,22 @@ describe('Orders, sell', () => {
                     res.should.have.status(404);
                     res.body.should.be.an("object");
                     res.body.errors.title.should.be.equal("Not found");
+
+                    done();
+                });
+        });
+
+        it('200 HAPPY PATH (check account after try to sell)', (done) => {
+            chai.request(server)
+                .post("/user/")
+                .set("Content-Type", "application/json")
+                .set("x-access-token", token)
+                .send({ user: "test@bjos19.me" })
+                .end((err, res) => {
+                    // console.log(res.body.data);
+                    res.should.have.status(200);
+                    res.body.should.be.an("object");
+                    res.body.data.account.should.be.equal(7);
 
                     done();
                 });

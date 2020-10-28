@@ -31,6 +31,22 @@ describe('Orders, buy', () => {
                     done();
                 });
         });
+
+        it('200 HAPPY PATH (check account after buy)', (done) => {
+            chai.request(server)
+                .post("/user/")
+                .set("Content-Type", "application/json")
+                .set("x-access-token", token)
+                .send({ user: "test@bjos19.me" })
+                .end((err, res) => {
+                    // console.log(res.body.data);
+                    res.should.have.status(200);
+                    res.body.should.be.an("object");
+                    res.body.data.account.should.be.equal(6);
+
+                    done();
+                });
+        });
     });
 
     describe('POST /order/buy (Get status 401)', () => {
@@ -110,6 +126,22 @@ describe('Orders, buy', () => {
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.an("object");
+
+                    done();
+                });
+        });
+
+        it('200 HAPPY PATH (check account after buy)', (done) => {
+            chai.request(server)
+                .post("/user/")
+                .set("Content-Type", "application/json")
+                .set("x-access-token", token)
+                .send({ user: "test@bjos19.me" })
+                .end((err, res) => {
+                    // console.log(res.body.data);
+                    res.should.have.status(200);
+                    res.body.should.be.an("object");
+                    res.body.data.account.should.be.equal(5);
 
                     done();
                 });

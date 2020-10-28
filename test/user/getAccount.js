@@ -9,7 +9,7 @@ const middleware = require('../../middleware/index.js');
 chai.should();
 
 chai.use(chaiHttp);
-describe('user, getAccount', () => {
+describe('/user/, getAccount', () => {
     var token = middleware.createToken("test@bjos19.me");
 
     describe('Post /user/ (get account)', () => {
