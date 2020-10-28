@@ -4,8 +4,6 @@ node_js:
     - "node"
     - "12"
     - "10"
-    # - "8"
-    # - "6"
 
 sudo: false
 
@@ -17,7 +15,3 @@ before_script:
 
 script:
     - npm test
-
-# after_success:
-#     - npm run report-coveralls
-#     - npm run report-codecov
