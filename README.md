@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bjorn-87/trading-backend.svg?branch=master)](https://travis-ci.org/bjorn-87/trading-backend)
+[![Build Status](https://travis-ci.org/bjorn-87/trading-backend.svg?branch=master)](https://travis-ci.org/bjorn-87/trading-backend) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bjorn-87/trading-backend/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bjorn-87/trading-backend/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/bjorn-87/trading-backend/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/bjorn-87/trading-backend/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/bjorn-87/trading-backend/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bjorn-87/trading-backend/build-status/master)
 
 ## Download and install
 ### npm install
