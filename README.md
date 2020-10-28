@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bjorn-87/trading-backend.svg?branch=master)](https://travis-ci.org/bjorn-87/trading-backend)
+
 ## Download and install
 ### npm install
 First download this repo and then run the command.
