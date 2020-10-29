@@ -65,7 +65,7 @@ var buyStock = function(res, body) {
                         status: 500,
                         source: "/order/buy",
                         title: "Database error",
-                        detail: "Not enough money"
+                        detail: "Not enough money to buy"
                     }
                 });
             }
@@ -115,7 +115,7 @@ var buyStock = function(res, body) {
                                         }
                                         res.status(201).json({
                                             data: {
-                                                msg: "order successfully registered"
+                                                msg: "Order successfully registered"
                                             }
                                         });
                                     }
@@ -139,7 +139,7 @@ var buyStock = function(res, body) {
                                         }
                                         res.status(200).json({
                                             data: {
-                                                msg: "order successfully registered"
+                                                msg: "Order successfully registered"
                                             }
                                         });
                                     }
@@ -190,7 +190,7 @@ var sellStock = function(res, body) {
                         status: 404,
                         source: "/order/sell",
                         title: "Not found",
-                        detail: "No more stocks to sell"
+                        detail: "No more/not enough stocks to sell"
                     }
                 });
             }
@@ -247,7 +247,7 @@ var sellStock = function(res, body) {
                                     }
                                     res.status(200).json({
                                         data: {
-                                            msg: "Order successfully sold"
+                                            msg: "Stock successfully sold"
                                         }
                                     });
                                 }

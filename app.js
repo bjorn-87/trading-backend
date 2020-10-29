@@ -65,13 +65,13 @@ io.on('connection', function(socket) {
 if (process.env.NODE_ENV !== 'test') {
     setInterval(function () {
         liqourice.map((candy) => {
-            candy["startingPoint"] = stock.getStockPrice(candy);
-
+            candy["startingPoint"] = Math.round(stock.getStockPrice(candy) * 100) / 100;
+            // console.log(candy);
             return candy;
         });
 
         io.emit("stocks", liqourice);
-    }, 1000);
+    }, 3000);
 }
 
 // Start up server

@@ -39,6 +39,7 @@ var updateAccount = function(res, body) {
     const money = parseFloat(body.money);
     const email = body.user;
     const type = body.type;
+    console.log(body);
 
     if (type === "insert") {
         db.run("UPDATE users SET account = account + ? WHERE email = ?",
