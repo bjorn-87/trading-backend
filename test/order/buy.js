@@ -83,7 +83,7 @@ describe('Orders, buy', () => {
                 .end((err, res) => {
                     res.should.have.status(500);
                     res.body.should.be.an("object");
-                    res.body.errors.detail.should.be.equal("Not enough money");
+                    res.body.errors.detail.should.be.equal("Not enough money to buy");
 
                     done();
                 });

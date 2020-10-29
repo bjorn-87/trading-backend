@@ -27,7 +27,7 @@ describe('Orders, sell', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
-                    res.body.data.msg.should.be.equal("Order successfully sold");
+                    res.body.data.msg.should.be.equal("Stock successfully sold");
 
                     done();
                 });
