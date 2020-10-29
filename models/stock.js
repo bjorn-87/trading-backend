@@ -1,6 +1,6 @@
 var stock = {
-    haxVral: {
-        name: "Häxvrål",
+    saltSill: {
+        name: "Salt sill",
         rate: 1.002,
         variance: 0.6,
         startingPoint: 10,

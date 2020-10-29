@@ -20,7 +20,7 @@ describe('Orders, buy', () => {
                 .set("x-access-token", token)
                 .send({
                     user: "test@bjos19.me",
-                    stock: "Häxvrål",
+                    stock: "Salt sill",
                     price: 2,
                     amount: 2
                 })
@@ -56,7 +56,7 @@ describe('Orders, buy', () => {
                 .set("Content-Type", "application/json")
                 .set("x-access-token", token)
                 .send({
-                    stock: "Häxvrål",
+                    stock: "Salt sill",
                     price: 2
                 })
                 .end((err, res) => {
@@ -76,7 +76,7 @@ describe('Orders, buy', () => {
                 .set("x-access-token", token)
                 .send({
                     user: "test",
-                    stock: "Häxvrål",
+                    stock: "Salt sill",
                     price: 2,
                     amount: 1
                 })
@@ -98,7 +98,7 @@ describe('Orders, buy', () => {
                 .set("x-access-token", token)
                 .send({
                     user: "test@bjos19.me",
-                    stock: "Häxvrål",
+                    stock: "Salt sill",
                     price: "@",
                     amount: 1
                 })

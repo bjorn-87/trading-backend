@@ -49,10 +49,10 @@ app.use(middleware.fourOFourHandler);
 // Felhanterare
 app.use(middleware.errorHandler);
 
-var haxVral = stock.haxVral;
+var saltSill = stock.saltSill;
 var skolKrita = stock.skolKrita;
 
-var liqourice = [haxVral, skolKrita];
+var liqourice = [saltSill, skolKrita];
 
 io.on('connection', function(socket) {
     io.emit("stocks", liqourice);

@@ -19,5 +19,5 @@ CREATE TABLE IF NOT EXISTS portfolio (
     amount INT DEFAULT 0
 );
 
-INSERT INTO portfolio (user, stock, amount) VALUES ("test@bjos19.me", "Häxvrål", 3);
-INSERT INTO portfolio (user, stock, amount) VALUES ("test", "Häxvrål", 3);
+INSERT INTO portfolio (user, stock, amount) VALUES ("test@bjos19.me", "Salt sill", 3);
+INSERT INTO portfolio (user, stock, amount) VALUES ("test", "Salt sill", 3);
