@@ -67,13 +67,13 @@ if (process.env.NODE_ENV !== 'test') {
         liqourice.map((candy) => {
             candy["startingPoint"] = Math.round(stock.getStockPrice(candy) * 100) / 100;
             if (candy["startingPoint"] > 1000) {
-                console.log(`over 100 ${candy["startingPoint"]}`);
+                // console.log(`over 100 ${candy["startingPoint"]}`);
                 candy["startingPoint"] = candy["startingPoint"] * 0.5;
-                console.log(candy["startingPoint"]);
-            } else if (candy["startingPoint"] <= 0) {
-                console.log(`under 0 ${candy["startingPoint"]}`);
-                candy["startingPoint"] = 1;
-                console.log(candy["startingPoint"]);
+                // console.log(candy["startingPoint"]);
+            } else if (candy["startingPoint"] < 0) {
+                // console.log(`under 0 ${candy["startingPoint"]}`);
+                candy["startingPoint"] = candy["startingPoint"] * 10;
+                // console.log(candy["startingPoint"]);
             }
             return candy;
         });
