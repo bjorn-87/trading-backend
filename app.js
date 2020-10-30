@@ -18,8 +18,8 @@ const user = require('./routes/user');
 const order = require('./routes/order');
 const stock = require('./models/stock.js');
 
-// io.origins(['https://trading.bjos19.me:443']);
-io.origins(['http://localhost:3000']);
+io.origins(['https://trading.bjos19.me:443']);
+// io.origins(['http://localhost:3000']);
 
 // log incoming to console
 // app.use(middleware.logIncoming);
