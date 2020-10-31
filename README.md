@@ -63,7 +63,7 @@ Har prioriterat kodtäckning när jag skapat mina tester och har därför inte g
 Testerna utförs med verktygen mocha och chai som är installerade med hjälp av npm. Använder dessa då det är enkelt att implementera i koden och alla asserts är väldigt läsbara. Ett exempel är ”res.body.should.be.equal.to” som nästan är skrivet i klartext vad den kollar.
 Innan själva testerna görs så skapas en test-databas för att inte påverka produktionsdatabasen, detta görs genom ett bashscript.
 Använder sedan chaiHttp i testet för att starta upp en testserver och på så sätt behöver inte servern vara igång för att testerna ska köras.
-Alla tester körs genom kommandot `npm test` där även verktyget nyc används för att skapa filer med kodtäckning som sparas i mappen coverage. Efter testscriptet körts valideras koden med hjälp av eslint och eslint-plugin-react.
+Alla tester körs genom kommandot `npm test` där även verktyget nyc används för att skapa filer med kodtäckning som sparas i mappen coverage. Efter testscriptet körts valideras koden med hjälp av eslint.
 
 Kodtäckningen landade på 85% och jag tyckte att det var ganska enkelt att få den siffran. Var några if-satser i databasfunktionerna som jag inte lyckades testa och de flesta funktionerna i middleware filen och dessa bidrar till att dra ner totalen.
 Då jag implementerade socket.io i backend istället för att skapa en egen server så var jag tvungen att exkludera setInterval funktionen då testerna inte gick att genomföra annars och detta medför även att totala procentuella kodtäckningen dras ner.
