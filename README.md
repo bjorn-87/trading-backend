@@ -33,7 +33,7 @@ Använder sedan jsonwebtoken för att på ett säkert sätt kunna hämta ut och 
 
 Andra tredjepartsmoduler som används är Cors, för att tillåta klienter att hämta data från mitt api. Morgan används för att få mer urförliga loggar och nodemon används i testmiljön för att automatiskt starta om servern när det görs ändringar i koden.
 
-###Router som detta API stödjer:
+### Router som detta API stödjer:
 * `GET  ”/”` : index
 * `GET ”/login/”` : index för login
 * `POST ”/login/”` : autentiserar användaren mot databasen (kräver att användarnamn och lösenord finns med i bodyn.)
