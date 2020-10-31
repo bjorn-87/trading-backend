@@ -18,8 +18,8 @@ const user = require('./routes/user');
 const order = require('./routes/order');
 const stock = require('./models/stock.js');
 
-io.origins(['https://trading.bjos19.me:443']);
-// io.origins(['http://localhost:3000']);
+// io.origins(['https://trading.bjos19.me:443']);
+io.origins(['http://localhost:3000', 'https://trading.bjos19.me:443']);
 
 // log incoming to console
 // app.use(middleware.logIncoming);
@@ -66,7 +66,7 @@ if (process.env.NODE_ENV !== 'test') {
     setInterval(function () {
         liqourice.map((candy) => {
             candy["startingPoint"] = Math.round(stock.getStockPrice(candy) * 100) / 100;
-            if (candy["startingPoint"] > 1000) {
+            if (candy["startingPoint"] > 100) {
                 // console.log(`over 100 ${candy["startingPoint"]}`);
                 candy["startingPoint"] = candy["startingPoint"] * 0.5;
                 // console.log(candy["startingPoint"]);

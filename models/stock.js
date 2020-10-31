@@ -1,15 +1,15 @@
 var stock = {
     saltSill: {
         name: "Salt sill",
-        rate: 1.002,
-        variance: 0.6,
+        rate: 1.0002,
+        variance: 0.4,
         startingPoint: 10,
     },
 
     skolKrita: {
         name: "Skolkrita",
-        rate: 1.001,
-        variance: 0.4,
+        rate: 1.0001,
+        variance: 0.2,
         startingPoint: 10,
     },
 
