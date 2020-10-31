@@ -72,7 +72,7 @@ if (process.env.NODE_ENV !== 'test') {
                 // console.log(candy["startingPoint"]);
             } else if (candy["startingPoint"] < 0) {
                 // console.log(`under 0 ${candy["startingPoint"]}`);
-                candy["startingPoint"] = candy["startingPoint"] * 10;
+                candy["startingPoint"] = candy["startingPoint"] = 10;
                 // console.log(candy["startingPoint"]);
             }
             return candy;
