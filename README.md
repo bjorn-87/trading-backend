@@ -66,7 +66,8 @@ Använder sedan chaiHttp i testet för att starta upp en testserver och på så 
 Alla tester körs genom kommandot `npm test` där även verktyget nyc används för att skapa filer med kodtäckning som sparas i mappen coverage. Efter testscriptet körts valideras koden med hjälp av eslint.
 
 Kodtäckningen landade på 85% och jag tyckte att det var ganska enkelt att få den siffran. Var några if-satser i databasfunktionerna som jag inte lyckades testa samt de flesta funktionerna i middleware filen och dessa bidrar till att dra ner totalen.
-Då jag implementerade socket.io i backend istället för att skapa en egen server så var jag tvungen att exkludera setInterval funktionen då testerna inte gick att genomföra annars och detta medför även att totala procentuella kodtäckningen dras ner.
+Då jag implementerade socket.io i backend istället för att skapa en egen server så var jag tvungen att exkludera setInterval funktionen då testerna inte gick att genomföra annars och detta medför även att totala procentuella kodtäckningen dras ner. 
+
 Min CI kedja för mitt backend API består av travis och scrutinizer då det är väldigt smidigt att båda dessa checkar ut mitt repo från github och kör testerna varje gång jag pushar upp ny kod. Riktigt smidigt att sen kunna ha badges som visar kodtäckning och om det har klarat testerna. Detta medför att man har bättre koll på kodtäckning och om koden går igenom testerna och ser även bra ut när andra besöker mitt repo. 
 För att få testerna att gå igenom travis så var jag tvungen att specificera node versionerna som skulle användas i testet. Om travis laddade hem den senaste versionen så gick inte testet igenom trots att det fungerar på min pc med senaste node versionen. Valde då att testerna körs med node 14, 12 och 10.  
 
